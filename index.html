@@ -768,6 +768,31 @@ select.fi{cursor:pointer}
 
 <script>
 // ══ STATE (ว่างทั้งหมด — Admin ใส่เอง) ══
+  // SAVE DATA
+function saveLocalData(){
+  localStorage.setItem('fitclass_data', JSON.stringify({
+    classes,
+    packages,
+    paymentInfo,
+    users,
+    bookings
+  }));
+}
+
+// LOAD DATA
+function loadLocalData(){
+  const saved = localStorage.getItem('fitclass_data');
+
+  if(saved){
+    const data = JSON.parse(saved);
+
+    classes = data.classes || [];
+    packages = data.packages || [];
+    paymentInfo = data.paymentInfo || {};
+    users = data.users || [];
+    bookings = data.bookings || [];
+  }
+}
 // ── GOOGLE SHEETS INTEGRATION ──
 const SHEET_URL='https://script.google.com/macros/s/AKfycbxt1VBrkItsqN-vKBxmpRwOInEvkr9ZH0IX6oBxterIOIuyvo-z4roCzn_i3_SxGgeDhg/exec';
 
@@ -2071,8 +2096,9 @@ function delPkg(id){
 }
 
 // INIT
+  loadLocalData();
 // ล้าง cache เก่าทิ้ง และเริ่มต้นใหม่เสมอ
-try{['fc_classes','fc_packages','fc_users','fc_bookings'].forEach(k=>localStorage.removeItem(k));}catch(e){}
+
 showScr('landing');updLand();
 </script>
 </body>
