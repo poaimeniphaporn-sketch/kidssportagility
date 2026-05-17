@@ -2083,6 +2083,7 @@ function savePkg(){
   if(S._ePkg){const p=S.packages.find(x=>x.id===S._ePkg);if(p)Object.assign(p,{name,price,sessions,persons,desc});}
   else S.packages.push({id:Date.now(),name,price,sessions,persons,desc});
   closeM('mPkg');renderPkgMgmt();updLand();if(S.user)refreshDash(S.user);renderPkgCards();
+  saveLocalData();
   showT(S._ePkg?'✅ แก้ไขแพ็กเกจแล้ว':'✅ เพิ่มแพ็กเกจแล้ว');S._ePkg=null;
 }
 function delPkg(id){
